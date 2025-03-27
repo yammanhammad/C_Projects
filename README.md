@@ -41,8 +41,11 @@ This repository contains a collection of C programs demonstrating various progra
 - [Number_Triangles/increasing_odd_rows.c](Number_Triangles/increasing_odd_rows.c) - Triangle with increasing odd rows
 - [Number_Triangles/odd_number_triangle.c](Number_Triangles/odd_number_triangle.c) - Triangle with odd numbers
 - [Number_Triangles/alternating_triangle.c](Number_Triangles/alternating_triangle.c) - Triangle with alternating numbers and letters
+- [Number_Triangles/combined_patterns.c](Number_Triangles/combined_patterns.c) - Multiple patterns including increasing, decreasing, diamond-like numbers and star pyramid
+- [Number_Triangles/numeric_pyramid.c](Number_Triangles/numeric_pyramid.c) - Hollow numeric pyramid with customizable height
 
 ### Utility Programs
+- [Utility_Programs/hello.c](Utility_Programs/hello.c) - Traditional "Hello, World!" program demonstration
 - [Utility_Programs/character_counter.c](Utility_Programs/character_counter.c) - Counts characters entered by user
 - [Utility_Programs/height_category.c](Utility_Programs/height_category.c) - Categorizes height measurements
 - [Utility_Programs/separator.c](Utility_Programs/separator.c) - Separates digits of a number and calculates sum
@@ -158,6 +161,8 @@ C_Projects/
 │   ├── column_counter_triangle.c
 │   ├── increasing_odd_rows.c
 │   ├── odd_number_triangle.c
+│   ├── combined_patterns.c
+│   ├── numeric_pyramid.c
 │   └── alternating_triangle.c
 ├── Utility_Programs/
 │   ├── character_counter.c
