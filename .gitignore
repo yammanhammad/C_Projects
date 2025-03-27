@@ -49,4 +49,4 @@ dkms.conf
 a.out
 program
 test
-main
+mainbin/
