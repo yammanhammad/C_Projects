@@ -1,35 +1,36 @@
-#include<stdio.h>
-#include<conio.h>
+#include <stdio.h>
 
-void main(void)
+/**
+ * Program to print a triangle pattern with alternating numbers and letters
+ * Rows are 1, 3, 5, 7 in length
+ */
+int main(void)
 {
-    int r,c,num;
-    char alph;
+    int row, col, num;
+    char letter;
 
-    r=1;
-
-    while(r<=8)
+    // Loop through rows (1, 3, 5, 7)
+    for (row = 1; row <= 8; row += 2)
     {
-        c=1;
-        num=1;
-        alph='A';
+        col = 1;
+        num = 1;
+        letter = 'A';
 
-        while(c<=r)
+        // Print alternating numbers and letters in each row
+        while (col <= row)
         {
-            if(c%2==1)
-            printf("%d",num);
+            if (col % 2 == 1)
+                printf("%d ", num);  // Print number with space for odd columns
             else
-            printf("%c",alph);
+                printf("%c ", letter);  // Print letter with space for even columns
 
             num++;
-            alph++;
-            c++;
+            letter++;
+            col++;
         }
 
         printf("\n");
-        
-        r+=2;
     }
-
-    _getch();
+    
+    return 0;
 }

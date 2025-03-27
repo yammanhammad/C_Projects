@@ -1,107 +1,99 @@
-#include<stdio.h>
-#include<conio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-void poin2darr(int *e[2][2]);
+// Function to print a 2D array using pointers
+void poin2darr(int *(*e)[2][2]);
 
-void main(void)
+int main(void)
 {
-    int a[2][2]={{1,2},{3,4}}, b[2][2]={{5,1},{-1,0}}, c[2][2], *x[2][2], *y[2][2], *z[2][2], d[4], i, j, k=0, temp;
+    // Declare and initialize two 2x2 matrices
+    int a[2][2] = {{1, 2}, {3, 4}};
+    int b[2][2] = {{5, 1}, {-1, 0}};
+    int c[2][2]; // Result matrix for a + b
+    int *x[2][2]; // Pointers to elements of matrix a
+    int *y[2][2]; // Pointers to elements of matrix b
+    int *z[2][2]; // Pointers to elements of matrix c and later sorted array
+    int d[4];     // Array to store flattened matrix elements for sorting
+    int i, j, k = 0, temp;
 
-    for(i=0;i<2;i++)
-    {
-        for(j=0;j<2;j++)
-        x[i][j]= &a[i][j];
+    // Initialize pointers to elements of matrix a
+    for(i = 0; i < 2; i++) {
+        for(j = 0; j < 2; j++)
+            x[i][j] = &a[i][j];
     }
 
-    for(i=0;i<2;i++)
-    {
-        for(j=0;j<2;j++)
-        printf("%d ",*x[i][j]);
+    // Print matrix a
+    printf("Matrix A:\n");
+    poin2darr(&x);
+    
 
-        printf("\n");
+    // Initialize pointers to elements of matrix b
+    for(i = 0; i < 2; i++) {
+        for(j = 0; j < 2; j++)
+            y[i][j] = &b[i][j];
     }
 
-    printf("\n");
+    // Print matrix b
+    printf("Matrix B:\n");
+    poin2darr(&y);
 
-    for(i=0;i<2;i++)
-    {
-        for(j=0;j<2;j++)
-        y[i][j]= &b[i][j];
+    // Add matrices a and b element-wise to get matrix c
+    for(i = 0; i < 2; i++) {
+        for(j = 0; j < 2; j++)
+            c[i][j] = *x[i][j] + *y[i][j];
     }
 
-    for(i=0;i<2;i++)
-    {
-        for(j=0;j<2;j++)
-        printf("%d ",*y[i][j]);
-
-        printf("\n");
+    // Initialize pointers to elements of matrix c
+    for(i = 0; i < 2; i++) {
+        for(j = 0; j < 2; j++)
+            z[i][j] = &c[i][j];
     }
 
-    printf("\n");
+    // Print matrix c (a + b)
+    printf("Matrix C (A + B):\n");
+    poin2darr(&z);
 
-    for(i=0;i<2;i++)
-    {
-        for(j=0;j<2;j++)
-        c[i][j]= *x[i][j]+ *y[i][j];
+    // Flatten matrix c into array d
+    k = 0;
+    for(i = 0; i < 2; i++) {
+        for(j = 0; j < 2; j++)
+            d[k++] = *z[i][j];
     }
 
-    for(i=0;i<2;i++)
-    {
-        for(j=0;j<2;j++)
-        z[i][j]= &c[i][j];
-    }
-
-    for(i=0;i<2;i++)
-    {
-        for(j=0;j<2;j++)
-        printf("%d ",*z[i][j]);
-
-        printf("\n");
-    }
-
-    printf("\n");
-
-    for(i=0;i<2;i++)
-    {
-        for(j=0;j<2;j++)
-        d[k++]= *z[i][j];
-    }
-
-    for(i=0;i<4;i++)
-    {
-        for(j=0;j<3;j++)
-        {
-            if(d[j]>d[j+1])
-            {
-                temp=d[j];
-                d[j]=d[j+1];
-                d[j+1]=temp;
+    // Sort array d using bubble sort
+    for(i = 0; i < 4; i++) {
+        for(j = 0; j < 3; j++) {
+            if(d[j] > d[j+1]) {
+                temp = d[j];
+                d[j] = d[j+1];
+                d[j+1] = temp;
             }
         }
     }
 
-    k=0;
-
-    for(i=0;i<2;i++)
-    {
-        for(j=0;j<2;j++)
-        z[i][j]=&d[k++];
+    // Update pointers to point to the sorted elements
+    k = 0;
+    for(i = 0; i < 2; i++) {
+        for(j = 0; j < 2; j++)
+            z[i][j] = &d[k++];
     }
 
-    poin2darr(z);
+    // Print the sorted matrix
+    printf("Sorted Matrix:\n");
+    poin2darr(&z);
 
-    _getch();
+    return 0;
 }
 
-void poin2darr(int *e[2][2])
+// Function to print a 2D array using pointers
+void poin2darr(int *(*e)[2][2])
 {
-    int i,j;
+    int i, j;
     
-    for(i=0;i<2;i++)
-    {
-        for(j=0;j<2;j++)
-        printf("%d ",*e[i][j]);
-
+    for(i = 0; i < 2; i++) {
+        for(j = 0; j < 2; j++)
+            printf("%d ", *((*e)[i][j]));
         printf("\n");
     }
+    printf("\n");
 }

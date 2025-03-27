@@ -1,55 +1,52 @@
-#include<stdio.h>
-#include<conio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
-void main(void)
+int main(void)
 {
-    int r,c,rows,cols,l;
+    int currentRow, currentColumn, patternSize;
+    char userChoice;
+    int inputIsValid;
     
-    start:
+    do {
+        // Clear screen (more portable approach)
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
 
-    system("cls");
-
-    printf("\n================== Pattern: Cross Inside a Square ==================\n");
-    printf("\nPlease enter the number of rows and columns separated by a space: ");
-    scanf("%d %d", &rows, &cols);
-
-    if(rows<1 || cols<1)
-    {
-        printf("\nError: Non-Positive Number\n");
-        printf("\nPress 0 to exit or any other key to continue: ");
-        l=getche();
+        printf("\n================== Pattern: Cross Inside a Square ==================\n");
+        printf("\nPlease enter the size of the pattern: ");
         
-        if(l=='0')
-        goto terminate;
-
-        else
-        goto start;
-    }
-    else
-    {
-        for(r=1;r<=rows;r++)
-        {
-            for(c=1;c<=cols;c++)
-            {
-                if(r==1||c==1||r==rows||c==rows||r==c||c==(rows-r+1))
-                printf("*");
-
-                else
-                printf(" ");
+        // Improved input validation
+        inputIsValid = scanf("%d", &patternSize);
+        while(getchar() != '\n'); // Clear input buffer
+        
+        if(inputIsValid != 1 || patternSize < 1) {
+            printf("\nError: Please enter a positive number\n");
+        } else {
+            // Print the pattern
+            for(currentRow = 1; currentRow <= patternSize; currentRow++) {
+                for(currentColumn = 1; currentColumn <= patternSize; currentColumn++) {
+                    // Square outline or diagonal crosses
+                    if(currentRow == 1 || currentColumn == 1 || 
+                       currentRow == patternSize || currentColumn == patternSize || 
+                       currentRow == currentColumn || currentColumn == (patternSize - currentRow + 1)) {
+                        printf("*");
+                    } else {
+                        printf(" ");
+                    }
+                }
+                printf("\n");
             }
-            printf("\n");
         }
-    }
-    
-    printf("\n\nPress 0 to exit or any other key to continue: ");
-    l=getche();
         
-    if(l=='0')
-    goto terminate;
-
-    else
-    goto start;
-
-    terminate:
+        printf("\nPress 0 to exit or any other key to continue: ");
+        userChoice = getchar();
+        while(getchar() != '\n'); // Clear input buffer again
+        
+    } while(userChoice != '0');
+    
+    return 0;
 }

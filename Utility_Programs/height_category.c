@@ -1,29 +1,59 @@
-#include<stdio.h>
-#include<conio.h>
+#include <stdio.h>
 
-void main(void)
+int main(void)
 {
-    float h;
+    float height;
+    int scan_result;
+    char continue_choice;
+    
+    do {
+        
+        printf("\nPlease enter your height in centimeters (or enter 0 to exit): ");
+        scan_result = scanf("%f", &height);
+        
+        // Clear input buffer
+        while (getchar() != '\n' && getchar() != EOF);
 
-    printf("Please enter your height in centimeters: ");
-    scanf("%f",&h);
+        // Handle invalid input
+        if (scan_result != 1) {
+            printf("\nInvalid input. Please enter a numeric value.\n");
+            continue;
+        }
+        
+        // Exit condition
+        if (height == 0) {
+            printf("\nExiting program. Goodbye!\n");
+            break;
+        }
+        
+        printf("\n");
+        
+        // Categorize height
+        if (height < 0) {
+            printf("\nInvalid Input: Height cannot be negative.\n");
+        } else if (height < 160) {
+            printf("\nCategory: Very Short\n");
+        } else if (height < 170) {
+            printf("\nCategory: Short\n");
+        } else if (height < 180) {
+            printf("\nCategory: Average\n");
+        } else if (height < 190) {
+            printf("\nCategory: Tall\n");
+        } else if (height < 350) {
+            printf("\nCategory: Very Tall\n");
+        } else {
+            printf("\nInvalid Input: Height seems unrealistically tall.\n");
+        }
+        
+        printf("\nDo you want to check another height? (y/n): ");
+        scanf(" %c", &continue_choice);
 
-    printf("\n");
-
-    if(h<=0)
-    printf("Invalid Input");
-    else if(h<160)
-    printf("Very Short");
-    else if(h<170)
-    printf("Short");
-    else if(h<180)
-    printf("Average");
-    else if(h<190)
-    printf("Tall");
-    else if(h<350)
-    printf("Very Tall");
-    else
-    printf("Invalid Input");
-
-    _getch();
+        // Clear input buffer
+        while (getchar() != '\n' && getchar() != EOF);
+        
+    } while (continue_choice == 'y' || continue_choice == 'Y');
+    
+    printf("\nThank you for using the height categorization program!\n");
+    
+    return 0;
 }

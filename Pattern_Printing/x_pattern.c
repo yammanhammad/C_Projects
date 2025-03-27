@@ -1,41 +1,62 @@
-#include<stdio.h>
-#include<conio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-void main(void)
-{
-    int r,c,l,h;
+// Function to clear input buffer
+void clearInputBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
 
-    do
-    {
+// Function to clear screen in a more portable way
+void clearScreen() {
+    #ifdef _WIN32
         system("cls");
+    #else
+        system("clear");
+    #endif
+    printf("\n");
+}
 
-        printf("\nPlease enter the height of X: ");
-        fflush(stdin);
-        scanf("%d",&h);
+int main(void)
+{
+    int row, column, height;
+    char choice = ' ';
 
-        printf("\n\n");
+    do {
+        clearScreen();
 
-        if(h>0)
-        {
-            for(r=1;r<=h;r++)
-            {
-                for(c=1;c<=h;c++)
-                {
-                    if(r==c || c==h-r+1)
-                    printf("*");
+        printf("Please enter the height of X (positive integer): ");
+        
+        // Input validation with error handling
+        if (scanf("%d", &height) != 1) {
+            printf("\a\nError: Invalid input. Please enter a number.\n");
+            clearInputBuffer();
+            continue;
+        }
+        
+        clearInputBuffer(); // Clear any remaining input
+        
+        printf("\n");
 
+        if (height > 0) {
+            // Print the X pattern
+            for (row = 1; row <= height; row++) {
+                for (column = 1; column <= height; column++) {
+                    if (row == column || column == height - row + 1)
+                        printf("*");
                     else
-                    printf(" ");
+                        printf(" ");
                 }
                 printf("\n");
             }
+        } else {
+            printf("\a\nError: Please enter a positive integer.\n");
         }
-        else
-        printf("\a\nError: Please enter a positive integer.");
 
-        printf("\n\nPress 0 to exit or any other key to contnue: ");
-        l = getche();
+        printf("\nPress 'q' to quit or any other key followed by Enter to continue: ");
+        choice = getchar();
         
-    } while (l!='0');
+    } while (choice != 'q' && choice != 'Q');
+
+    return 0;
 }

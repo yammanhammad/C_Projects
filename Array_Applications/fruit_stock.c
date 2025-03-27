@@ -15,37 +15,80 @@ Your program should then prompt the store manager to enter the name of a fruit a
 You can assume that the store manager will only enter valid fruit names from the provided list, and the quantity sold will be a positive integer.*/
 
 #include<stdio.h>
-#include<conio.h>
+#include<string.h>
 
-void main(void)
+/**
+ * Fruit Stock Management Program
+ * Tracks inventory of 10 different fruits and allows for sales updates
+ */
+int main(void)
 {
+    // Initialize fruit stock array with quantities for 10 fruits:
+    // [0]Apples, [1]Bananas, [2]Oranges, [3]Grapes, [4]Mangoes,
+    // [5]Pineapples, [6]Watermelons, [7]Strawberries, [8]Kiwis, [9]Pears
     int fruitStock[10]={50,30,20,40,35,25,15,60,10,45},sold;
-    char fname[6];
+    char fname[50]; // Variable to store fruit name input
+    const char *fruitNames[10] = {"Apples", "Bananas", "Oranges", "Grapes", "Mangoes",
+                                 "Pineapples", "Watermelons", "Strawberries", "Kiwis", "Pears"};
+    int fruitIndex = -1;
 
     do
     {
-        printf("Please enter fruit name or \"exit\" to close the program: ");
-        scanf("%s",&fname);
-        printf("%s",fname);
-
-        printf("\nPlease enter quantity sold: ");
-        scanf("%d",&sold);
-
-        if(fname=="Apples")
-        {
-            fruitStock[0]-=sold;
-            printf("\n%s: %d",fname,fruitStock[0]);
+        // Prompt user for fruit name or exit command
+        printf("\n\nPlease enter fruit name or \"exit\" to close the program: ");
+        scanf("%s", fname);
+        
+        // Check if user wants to exit
+        if(strcmp(fname, "exit") == 0) {
+            printf("\nExiting program...");
+            
+            // Print the entire inventory before exiting
+            printf("\n\nFinal Inventory:");
+            for(int i = 0; i < 10; i++) {
+                printf("\n%s: %d", fruitNames[i], fruitStock[i]);
+            }
+            printf("\n");
+            break;
         }
-        else if (fname=="Bananas")
-        {
-            fruitStock[1]-=sold;
-            printf("\n%s: %d",fname,fruitStock[1]);
+        
+        // Find matching fruit
+        fruitIndex = -1;
+        for(int i = 0; i < 10; i++) {
+            if(strcmp(fname, fruitNames[i]) == 0) {
+                fruitIndex = i;
+                break;
+            }
         }
-        else if(fname=="exit")
-        {
-            printf("\nInvalid Input");
-        }
-    } while (fname!="exit");
 
-    _getch();
+        // Process only if valid fruit found
+        if(fruitIndex != -1) {
+            // Get quantity of fruit sold with validation
+            int valid_input = 0;
+            while (!valid_input) {
+                printf("\nPlease enter quantity sold: ");
+                if (scanf("%d", &sold) != 1) {
+                    // Clear input buffer if invalid input
+                    while (getchar() != '\n');
+                    printf("\nInvalid input. Please enter a number.\n");
+                } else if (sold <= 0) {
+                    printf("\nQuantity must be positive.\n");
+                } else {
+                    valid_input = 1;
+                }
+            }
+            
+            if(sold <= fruitStock[fruitIndex]) {
+                fruitStock[fruitIndex] -= sold;
+                printf("\n%s: %d", fruitNames[fruitIndex], fruitStock[fruitIndex]);
+            } else {
+                printf("\nNot enough %s in stock. Current stock: %d\n", 
+                       fruitNames[fruitIndex], fruitStock[fruitIndex]);
+            }
+        } else {
+            printf("\nInvalid fruit name. Please enter a fruit from the list.\n");
+        }
+        
+    } while (1); // Loop will exit with break statement
+
+    return 0;
 }
