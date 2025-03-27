@@ -117,7 +117,7 @@ Sum of digits: 15
 
 These programs can be compiled using any standard C compiler (GCC recommended):
 
-```
+```bash
 # For a program in a subfolder
 gcc -o program_name Category_Folder/program_name.c
 ./program_name
@@ -127,14 +127,14 @@ gcc -o program_name Category_Folder/program_name.c
 
 To compile and run the asterisk diamond pattern:
 
-```
+```bash
 gcc -o diamond Pattern_Printing/asterisk_diamond.c
 ./diamond
 ```
 
 To compile a program that uses the math library:
 
-```
+```bash
 gcc -o calculator Calculators/scientific_calculator.c -lm
 ./calculator
 ```
